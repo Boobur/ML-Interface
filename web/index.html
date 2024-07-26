@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model</title>
+    <link rel="icon" href="./images/Brain.png" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/fontawesome/css/all.min.css">
+    <script type="text/javascript" src="/eel.js"></script>
+    <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"> </script> 
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.2/chart.umd.js"> </script> 
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="./images/Brain.png" alt="brain-logo">
+            <h1 class="title">ML Model</h1>
+        </div>
+
+        <div class="control-panel">
+            <!-- Start panel 1 -->
+            <div class="panel penel-1">
+                <div class="panel-logo">
+                    <img src="./images/Computer Support.png" alt="setting">
+                    <p>Sozlamalar</p>
+                </div>
+                <div class="penel1-tools">
+                    <div class="tools-item tools-item1">
+                        <div class="file-path">
+                            <input type="text" readonly placeholder="Select Data">
+                            <i class="fa-solid fa-file-csv"></i>
+                        </div>
+                        <button class="csv-button">
+                            <i class="fa-solid fa-file-csv"></i></i>SCV Sozlama
+                        </button>
+                    </div>
+                    <div class="tools-item tools-item2">
+                        <div class="dropdown">
+                            <i class="fa-solid fa-angle-down"></i>
+                            <input type="text" placeholder="Select Model" readonly>
+                            <div class="options">
+                                <p class="item-1">DecisionTreeRegressor</p>
+                                <p class="item-1">RandomForestRegressor</p>
+                                <p class="item-1">GradientBoostingRegressor</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tools-item tools-item3">
+                        <button class="setting-button">
+                            <i class="fa-solid fa-gear"></i>Sozlama
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- End panel 1 -->
+
+            <!-- Start panel 2 -->
+            <div class="panel penel-2">
+                <div class="panel-logo">
+                    <img src="./images/Weightlifting.png" alt="weight">
+                    <p>Mashq</p>
+                </div>
+                <div class="progress-container">
+                    <div class="progress">
+                        <div class="progress-content">
+                             <div class="progress-text">
+                                 <p><span class="score">0</span><span>%</span></p>
+                                 <p>progress</p>
+                             </div>
+                        </div>
+                     </div>
+                </div>
+                
+                <button class="train-button">
+                    <i class="fa-solid fa-person-running"></i>Mashq
+                </button>
+            </div>
+            <!-- End panel 2 -->
+            <!-- Start panel 3 -->
+            <div class="panel penel-3">
+                <div class="panel-logo">
+                    <img src="./images/Pass Fail.png" alt="weight">
+                    <p>Test</p>
+
+                </div>
+                <div class="progress-container">
+                    <div class="progress">
+                        <div class="progress-content">
+                             <div class="progress-text">
+                                 <p><span class="score" >0</span><span>%</span></p>
+                                 <p>score</p>
+                             </div>
+                        </div>
+                     </div>
+                </div>
+                
+                <button class="test-button">
+                    <i class="fa-solid fa-clipboard-check"></i></i>Test
+                </button>
+            </div>
+            <!-- End panel 3 -->
+        </div>
+
+        <div class="graphic">
+            <div class="left-grapihcs">
+                <canvas id="stackedArea" class="canvas-plot"></canvas> 
+            </div>
+            <div class="right-grapihcs">
+                <div class="table-container"></div>
+             
+            </div>
+        </div>
+        <!-- Modal csv Start -->
+        <div class="modal-csv">
+            <div class="modal-container">
+                <div class="left-side">
+                   <fieldset class="left-fieldset">
+                    <legend>CSV Sozlamalari</legend>
+                    <div class="left-fieldset-container">
+                        <fieldset class="setting-row">
+                            <legend>DataFrameni chop etish</legend>
+                            <div class="setting-row-element"></div>
+                        </fieldset>
+                        <fieldset class="setting-col">
+                            <legend>Kerak bo'lmagan ustun</legend>
+                            <div class="setting-col-element"></div>
+                        </fieldset>
+                        <fieldset class="setting-predict-data">
+                            <legend>Bashorat ustunini tanlang</legend>
+                            <div class="info-data">
+                                <p>
+                                   Bashorat ustunini tanlang. Bu haqiqiy sonlar ustuni bo'lishi shart. 
+                                </p>
+                            </div>
+                            <div class="setting-predict-element"></div>
+                        </fieldset>
+                        <fieldset class="setting-date">
+                            <legend>Sana ustunini ko'rsating</legend>
+                            <div class="info-data">
+                                <p>
+                                    Agar DataFramening ichida sana ishlatilgan bo'lsa unda uning ko'rinishi quyida keltirilgan ko'rinishda bo'lish kerak!<span>2023-01-31 00:00:00</span>
+                                </p>
+                            </div>
+                            <div class="setting-date-element"></div>
+                        </fieldset>
+                        <fieldset class="setting-nan-null">
+                            <legend>NaN va Null</legend>
+                            <div class="info-data">
+                                <p>
+                                    Agar DataFramening ichida <span>NaN</span> va <span>Null</span> bo'lsa ularni tozalash kerak!
+                                </p>
+                            </div>
+                            <div class="setting-nan-null-element"></div>
+                        </fieldset>
+                        <fieldset class="setting-train-test">
+                            <legend>Mashq va Test data</legend>
+                            <div class="train-data">
+                                <p>
+                                   Bu yerda biz dataframeni ikkiga bo'lishimiz zarur mashq va testga!
+                                   Asosan mashq va test 80/20, 70/30 larga bo'linadi.
+                                   Bunda 80% ma'lumotning barchasi mashqga va 20% test uchun ishlatiladi
+                                </p>
+                            </div>
+                            <div class="setting-train-test-element">
+                                <label for="train_test">Mashq ma'lumotini tanlang:</label>
+                                <input type="range" id="train_test" name="temp" list="train_values" min="10", max="90" value="80" step="10"/>
+
+                                <datalist id="train_values">
+                                    <option value=10 label="10"></option>
+                                    <option value=20 label="20"></option>
+                                    <option value=30 label="30"></option>
+                                    <option value=40 label="40"></option>
+                                    <option value=50 label="50"></option>
+                                    <option value=60 label="60"></option>
+                                    <option value=70 label="70"></option>
+                                    <option value=80 label="80"></option>
+                                    <option value=90 label="90"></option>
+                                </datalist>
+                            </div>
+                        </fieldset>
+                    </div>  
+                   </fieldset>
+                </div>
+                <div class="right-side">
+                    <fieldset class="right-fieldset">
+                        <legend>CSV Jadival</legend>
+                        <div class="table-container">
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="close-modal"><i class="fa-solid fa-circle-xmark"></i></div>
+            </div>
+        </div>
+        <!-- Modal csv end -->
+
+        <!-- Modal model start -->
+        <div class="modal-model">
+            <div class="modal-container">
+                <fieldset class="model-setting"> 
+                    <legend class="model-legend"></legend>
+                    <div class="model-setting-param"></div>
+                </fieldset>
+                <fieldset class="model-doc"> 
+                    <legend>Qo'llanma</legend>
+                    <div class="model-doc-doc"></div>
+                </fieldset>
+                
+                <div class="close-modal"><i class="fa-solid fa-circle-xmark"></i></div>
+            </div>
+        </div>
+        <!-- Modal model end -->
+        <!-- Allert model start -->
+        <div class="modal-allert">
+            <div class="modal-container">
+                <h2><i class="fa-solid fa-triangle-exclamation"></i> Xatolik</h2>
+                <p>CSV hujjat yoki bashorat ustuni tanlanmagan!</p>
+                <div class="close-modal"><i class="fa-solid fa-circle-xmark"></i></div>
+            </div>
+        </div>
+        <!-- Aller model end -->
+    </div>
+    <div class="modal-shaddow"></div>
+</body>
+<script src="./js/main.js"></script>
+<script src="./js/grapihs.js"></script>
+</html>
+
